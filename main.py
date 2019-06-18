@@ -26,7 +26,7 @@ def newone():
 
             else:
                 print("Error")
-                print("try Again")
+                
 
 
 
