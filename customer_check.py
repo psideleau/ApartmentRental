@@ -5,16 +5,16 @@ class Customer_check:
     def Main(self, choice):
         db = sqlite3.connect("test.db")
         db.row_factory = sqlite3.Row
-        db.execute("create table if not exists Employee(Name text, EmployeeID int, DOB text, Position text)")
+        db.execute("create table if not exists Employee(Name text, EmployeeID int, DOB text, Position text, Password int)")
         db.execute(
             "create table if not exists Customer(Name text, NationalID int, DOB text, PhoneNUM int, Password int)")
         db.execute(
             "create table if not exists Unit(UniteID text, RoomNUM int, BathNUM int, Price float, UniState text)")
         db.execute("create table if not exists Reservation(NationalID int, UniteID text) ")
-        db.execute("insert into Employee (Name,EmployeeID,DOB,Position) values (? , ? , ? , ?)",
-                   ("Salem", 1234, "1/1/1990", "Owner"))
-        db.execute("insert into Employee (Name,EmployeeID,DOB,Position) values (? , ? , ? , ?)",
-                   ("Abdullah", 4321, "1/1/1991", "Supervisor"))
+        db.execute("insert into Employee (Name,EmployeeID,DOB,Position,Password) values (? , ? , ? , ?, ?)",
+                   ("Salem", 1234, "1/1/1990", "Owner", 999))
+        db.execute("insert into Employee (Name,EmployeeID,DOB,Position,Password) values (? , ? , ? , ?, ?)",
+                   ("Abdullah", 4321, "1/1/1991", "Supervisor", 888))
         db.execute("insert into Customer (Name,NationalID,DOB,PhoneNUM,Password) values (? , ? , ? , ?, ?)",
                    ("Sara", 123, "1/1/1980", 500500, 111))
         db.execute("insert into Customer (Name,NationalID,DOB,PhoneNUM,Password) values (? , ? , ? , ?, ?)",
@@ -40,6 +40,9 @@ class Customer_check:
         db.execute("insert into Reservation (NationalID,UniteID) values (? , ?)", (789, "5B"))
         # db.commit()
 
+
+
+
         if choice == "1":
             cusror = db.execute("select * from Unit where UniState= 'Available' ")
             for row in cusror:
@@ -50,3 +53,16 @@ class Customer_check:
 
         else:
             print("wrong choice")
+
+
+
+    def look(self, just):
+        while just == 1:
+            NationalID = input ("please enter national id:")
+            with sqlite3.connect("test.db") as db :
+                cusror = db.cursor()
+                findit = ("select * from Reservation WHERE NationalID = ?")
+                cusror.execute(findit, [(NationalID)])
+                print(cusror.fetchall())
+                break
+                

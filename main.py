@@ -20,8 +20,13 @@ def newone():
             else:
                 print("error!!!!")
                 break
+                
+<<<<<<< HEAD
         break 
             
+=======
+            break
+>>>>>>> 24e1d231997e2589e3eb127ca261aeb2ed3ce1dd
 
 
 
